@@ -9,6 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const API_KEY = "c221f15c0b15ddd4e2e35e75238d7f79";
-const loadTemperature = (city) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield fetch(``);
+const loadTemperature = () => __awaiter(void 0, void 0, void 0, function* () {
+    const searchField = document.querySelector("#search-field");
+    const city = searchField.value;
+    console.log(city);
+    try {
+        const res = yield fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
+        const data = yield res.json();
+        console.log(data);
+    }
+    catch (error) {
+        console.log(error);
+    }
 });
