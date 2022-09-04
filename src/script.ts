@@ -5,14 +5,28 @@ const loadTemperature = async () => {
     "#search-field"
   ) as HTMLInputElement;
   const city = searchField.value;
-  console.log(city);
+
   try {
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     );
     const data = await res.json();
-    console.log(data);
+    displayTemperature(data);
   } catch (error) {
     console.log(error);
   }
+};
+
+const displayTemperature = (data: any) => {
+  const cityName = document.querySelector("#city-name") as HTMLHeadingElement;
+  const temperature = document.querySelector("#temperature") as HTMLSpanElement;
+  const weather = document.querySelector("#weather") as HTMLHeadingElement;
+
+  cityName.textContent = "";
+  temperature.textContent = "";
+  weather.textContent = "";
+
+  cityName.innerText = data.name;
+  temperature.innerText = data.main.temp;
+  weather.innerText = data.weather[0].main;
 };
